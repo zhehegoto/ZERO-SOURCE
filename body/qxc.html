@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="零源机构群相册 — 散落的记忆碎片">
+    <title>群相册 - 零源机构 | Z℮R∅‑SOURCE</title>
+    <link rel="stylesheet" href="../css/public.css">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/qxc.css">
+    <link rel="stylesheet" href="../css/wtfk.css">
+    <link href="../css/fonts-google.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../images/cursor/正常选择.cur">
+</head>
+<body>
+<main>
+    <!-- 液态头部 -->
+    <section class="gallery-hero">
+        <div class="hero-blob g-a"></div>
+        <div class="hero-blob g-b"></div>
+        <div class="hero-inner">
+            <span class="gallery-badge"><i class="fa fa-camera"></i> MEMORY</span>
+            <h1 class="gallery-title">详情请看-页脚-隐私政策-05群相册</h1>
+            <p class="gallery-subtitle">每一张照片，都是时光的碎片</p>
+            <div class="gallery-hint">
+                <i class="fa fa-hand-pointer-o"></i>
+                <span>悬停扶正 · 点击放大 · 左右键切换</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 散落照片桌面 -->
+    <section class="photo-desk" id="photoDesk">
+        <div class="desk-surface"></div>
+        <!-- JS 动态生成散落照片 -->
+    </section>
+
+    <!-- 加载更多 -->
+    <div class="desk-load-more">
+        <button class="liquid-btn primary" id="loadMoreBtn">
+            <i class="fa fa-plus"></i> 拾起更多记忆
+        </button>
+        <div class="loading-indicator" id="loadingIndicator" style="display:none;">
+            <i class="fa fa-spinner fa-spin"></i> 正在翻找...
+        </div>
+    </div>
+</main>
+
+<!-- 沉浸式预览 -->
+<div class="immersive-preview" id="immersivePreview">
+    <div class="preview-bg"></div>
+    <button class="preview-close" id="previewClose">&times;</button>
+    <button class="preview-nav prev" id="previewPrev"><i class="fa fa-chevron-left"></i></button>
+    <button class="preview-nav next" id="previewNext"><i class="fa fa-chevron-right"></i></button>
+    <div class="preview-stage">
+        <div class="preview-loader" id="previewLoader"><i class="fa fa-spinner fa-spin"></i></div>
+        <img class="preview-img" id="previewImg" src="" alt="">
+    </div>
+    <div class="preview-caption">
+        <span class="caption-title" id="captionTitle">记忆碎片</span>
+        <span class="caption-index" id="captionIndex">1 / 118</span>
+    </div>
+</div>
+
+<script src="../js/qxc.js"></script>
+<script src="../js/public.js"></script>
+<script src="../js/wtfk.js"></script>
+</body>
+</html>

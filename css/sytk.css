@@ -1,0 +1,259 @@
+/* ========== 使用条款 - 液态玻璃手风琴 ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #f0f5ff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #2d1b4e;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: -15%; right: -10%;
+    width: 45vw; height: 45vw;
+    background: radial-gradient(circle, rgba(100,200,255,0.25), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -20%; left: -10%;
+    width: 50vw; height: 50vw;
+    background: radial-gradient(circle, rgba(196,77,255,0.18), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.terms-page {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 120px 24px 80px;
+}
+
+/* ========== 页面头部 ========== */
+.page-hero {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.hero-tag {
+    display: inline-block;
+    padding: 8px 24px;
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4a9eff;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-family: 'ZCOOL QingKe HuangYou', 'Syne', sans-serif;
+    font-size: 3.2rem;
+    color: #2d1b4e;
+    letter-spacing: 8px;
+    margin-bottom: 16px;
+}
+
+.hero-subtitle {
+    font-size: 0.95rem;
+    color: rgba(45,27,78,0.6);
+    line-height: 1.8;
+}
+
+/* ========== 简介卡片 ========== */
+.intro-card {
+    border-radius: 24px 40px 28px 44px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.intro-card i {
+    font-size: 1.3rem;
+    color: #4a9eff;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.intro-card p {
+    font-size: 0.88rem;
+    color: rgba(45,27,78,0.7);
+    line-height: 1.9;
+    margin: 0;
+}
+
+/* ========== 手风琴 ========== */
+.accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.accordion-item {
+    border-radius: 20px 36px 24px 40px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.accordion-item:hover {
+    box-shadow: 0 16px 40px rgba(100,150,220,0.18);
+}
+
+.accordion-item.active {
+    box-shadow: 0 20px 50px rgba(100,150,220,0.22);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 28px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.acc-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4a9eff, #c44dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 40px;
+}
+
+.acc-title {
+    font-family: 'ZCOOL QingKe HuangYou', 'Syne', sans-serif;
+    font-size: 1.15rem;
+    color: #2d1b4e;
+    flex: 1;
+}
+
+.acc-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(74,158,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a9eff;
+    font-size: 0.75rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    flex-shrink: 0;
+}
+
+.accordion-item.active .acc-icon {
+    background: linear-gradient(135deg, #4a9eff, #c44dff);
+    color: #fff;
+    transform: rotate(180deg);
+}
+
+/* 手风琴内容 */
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.accordion-item.active .accordion-body {
+    max-height: 800px;
+}
+
+.acc-content {
+    padding: 0 28px 28px 84px;
+}
+
+.acc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.acc-list li {
+    position: relative;
+    padding: 8px 0 8px 24px;
+    font-size: 0.86rem;
+    color: rgba(45,27,78,0.72);
+    line-height: 1.8;
+}
+
+.acc-list li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 15px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4a9eff, #c44dff);
+}
+
+/* 子区块 */
+.sub-block {
+    margin-bottom: 16px;
+}
+.sub-block:last-child {
+    margin-bottom: 0;
+}
+
+.sub-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sub-title.allow {
+    color: #2ecc71;
+}
+
+.sub-title.deny {
+    color: #e74c3c;
+}
+
+/* ========== 底部提示 ========== */
+.footer-note {
+    margin-top: 36px;
+    border-radius: 24px 40px 28px 44px;
+    padding: 24px 28px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(74,158,255,0.12), rgba(196,77,255,0.12));
+}
+
+.footer-note i {
+    color: #ff6b9d;
+    font-size: 1.1rem;
+}
+
+.footer-note p {
+    font-size: 0.88rem;
+    color: rgba(45,27,78,0.65);
+    margin: 0;
+}

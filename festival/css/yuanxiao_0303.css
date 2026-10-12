@@ -1,0 +1,317 @@
+/* 元宵节 · 液态玻璃暖橙金主题 */
+:root {
+    --grad-1: #ff8c42;
+    --grad-2: #ffb347;
+    --grad-3: #ffd700;
+    --glass-bg: rgba(255,255,255,0.22);
+    --glass-border: rgba(255,255,255,0.45);
+    --glass-shadow: 0 8px 32px rgba(255,140,66,0.15);
+    --text-dark: #3a2010;
+    --text-light: rgba(58,32,16,0.65);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, 'Noto Sans SC', 'PingFang SC', sans-serif;
+    background: linear-gradient(135deg, #fff5eb 0%, #ffe8d6 30%, #ffddc0 60%, #fff8e6 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--text-dark);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 600px 500px at 15% 20%, rgba(255,140,66,0.18), transparent),
+        radial-gradient(ellipse 500px 600px at 85% 25%, rgba(255,179,71,0.15), transparent),
+        radial-gradient(ellipse 550px 450px at 50% 85%, rgba(255,215,0,0.12), transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+#bgCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px 100px;
+}
+
+.liquid-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px 40px 28px 44px;
+    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.1) 40%, transparent 60%, rgba(255,255,255,0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Hero */
+.hero { text-align: center; margin-bottom: 60px; }
+
+.hero-tag {
+    display: inline-block;
+    padding: 8px 28px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: var(--text-dark);
+    margin-bottom: 28px;
+}
+
+.hero-title {
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.hero-title .char {
+    background: linear-gradient(135deg, var(--grad-1), var(--grad-2) 50%, var(--grad-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 20px rgba(255,140,66,0.3));
+    animation: charFloat 3s ease-in-out infinite;
+}
+.hero-title .char:nth-child(2) { animation-delay: 0.2s; }
+.hero-title .char:nth-child(3) { animation-delay: 0.4s; }
+.hero-title .char:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes charFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    letter-spacing: 6px;
+}
+
+/* 灯谜区 */
+.riddle-section {
+    padding: 40px;
+    margin-bottom: 50px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.riddle-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.riddle-icon { font-size: 1.8rem; }
+
+.riddle-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--grad-1), var(--grad-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.riddle-count {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    background: rgba(255,255,255,0.4);
+    padding: 4px 14px;
+    border-radius: 20px;
+}
+
+.riddle-card {
+    background: rgba(255,255,255,0.35);
+    border-radius: 20px 32px 24px 36px;
+    padding: 36px 28px;
+    margin-bottom: 24px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.riddle-card:hover {
+    background: rgba(255,255,255,0.5);
+    transform: translateY(-2px);
+}
+
+.riddle-question {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.riddle-answer {
+    font-size: 1.1rem;
+    color: var(--grad-1);
+    font-weight: 700;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(255,140,66,0.3);
+    animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.riddle-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.liquid-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 50px 60px 45px 55px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: none;
+    letter-spacing: 1px;
+    font-family: inherit;
+}
+
+.liquid-btn.primary {
+    background: linear-gradient(135deg, var(--grad-1), var(--grad-2));
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(255,140,66,0.35);
+}
+
+.liquid-btn.primary:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 36px rgba(255,140,66,0.5);
+}
+
+.liquid-btn.ghost {
+    background: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.6);
+    color: var(--text-dark);
+}
+
+.liquid-btn.ghost:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.5);
+}
+
+/* 卡片网格 */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 50px;
+}
+
+.card {
+    padding: 32px 24px;
+    text-align: center;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(255,140,66,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card:hover .card-icon {
+    transform: scale(1.2) rotate(-5deg);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.card-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-light);
+}
+
+/* 祝福条 */
+.blessing-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.blessing-item {
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.blessing-item:hover { transform: translateY(-4px); }
+
+.b-num {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--grad-1), var(--grad-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.7;
+}
+
+.b-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: 2px;
+}
