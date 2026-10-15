@@ -1,0 +1,362 @@
+:root {
+    --secondary-color: #3498db;
+    --bg-white: #ffffff;
+    --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+    --transition: 0.3s ease;
+
+    --grad: linear-gradient(135deg, #4a9eff, #6c5ce7);
+    --ease: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --txt2: #666666;
+    --accent: #4a9eff;
+    --accent2: #6c5ce7;
+    --txt: #1a1a2e;
+
+    /* 液态玻璃设计系统 — 全站通用 */
+    --bg-base: #f5f0ff;
+    --text-dark: #1a1530;
+    --text-mid: #5a5078;
+    --text-light: #9a90b8;
+    --grad-pink: #ff6b9d;
+    --grad-purple: #c44dff;
+    --grad-blue: #4dd0ff;
+    --grad-green: #4dffb8;
+}
+
+/* ========== 液态玻璃通用卡片 ========== */
+.liquid-glass {
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.55);
+    box-shadow: 0 8px 32px rgba(120,80,200,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', -apple-system, sans-serif;
+    background: var(--bg-white);
+    color: var(--txt);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 注意：main 是纵向 flex 容器，直接子元素都是 flex item（交叉轴 = 水平方向）。
+   若子元素写了 margin:0 auto（如 .photo-desk），auto 外边距会接管交叉轴对齐，
+   使该元素退化为 fit-content —— 宽度收缩到内容宽度。显式声明 align-items:stretch
+   并把子元素 width 设为 100%，才不会塌缩。 */
+main { flex: 1; display: flex; flex-direction: column; align-items: stretch; }
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: var(--ease);
+    background: transparent;
+}
+.site-header.scrolled {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+.logo-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+    transition: letter-spacing 0.3s ease, filter 0.3s ease;
+}
+.logo:hover .logo-text {
+    letter-spacing: 5px;
+    filter: drop-shadow(0 0 6px rgba(74, 158, 255, 0.55));
+}
+.logo-sub {
+    font-size: 0.85rem;
+    color: var(--txt2);
+    letter-spacing: 2px;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 5px;
+}
+.main-nav a {
+    position: relative;
+    display: block;
+    padding: 8px 18px;
+    color: #2d1b4e;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.site-header.scrolled .main-nav a {
+    color: #2d1b4e;
+}
+.main-nav a:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #4a9eff, #6c5ce7);
+    border-color: transparent;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 16px rgba(74,158,255,0.35);
+}
+.site-header.scrolled .main-nav a:hover {
+    color: #fff;
+}
+.main-nav a.active {
+    color: #fff;
+    background: linear-gradient(135deg, #4a9eff, #6c5ce7);
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(74,158,255,0.3);
+}
+.site-header.scrolled .main-nav a.active {
+    color: #fff;
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 3px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #4a9eff, #2980b9);
+    transition: width 0.3s ease;
+}
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: calc(100% - 26px);
+}
+
+.site-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #4a9eff, #2980b9, #4a9eff, transparent);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: headerLineFlow 3s linear infinite;
+    pointer-events: none;
+}
+.site-header.scrolled::after { opacity: 1; }
+@keyframes headerLineFlow {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.footer {
+    flex-shrink: 0;
+    position: relative;
+    padding: 20px 0;
+    margin-top: 40px;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border-top: 1px solid rgba(255,255,255,0.5);
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff6b9d, #c44dff, #4dd0ff, #4dffb8, transparent);
+    background-size: 200% 100%;
+    animation: footerLineFlow 6s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes footerLineFlow {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.footer-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.footer-left { flex: 1; display: flex; align-items: center; justify-content: flex-start; }
+.footer-nav { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+.footer-nav a {
+    color: #5a5078;
+    font-size: 0.85rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    position: relative;
+}
+.footer-nav a:hover,
+.footer-nav a.active { color: #c44dff; }
+.footer-center { flex: 1; display: flex; align-items: center; justify-content: center; }
+.copyright { color: #9a90b8; font-size: 0.82rem; }
+.footer-right { flex: 1; display: flex; align-items: center; justify-content: flex-end; }
+#runtime {
+    margin: 0 !important;
+    font-size: 0.78rem !important;
+    color: #9a90b8 !important;
+    line-height: 1 !important;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 1px;
+}
+
+.footer-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 1.5px;
+    background: linear-gradient(90deg, #ff6b9d, #c44dff);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+.footer-nav a:hover::after,
+.footer-nav a.active::after { width: 100%; }
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 999;
+}
+.back-to-top.visible { opacity: 1; visibility: visible; }
+.back-to-top:hover { background: #2980b9; transform: translateY(-3px); }
+
+/* ========== 自定义鼠标光标 ========== */
+* {
+    cursor: url('../images/cursor/正常选择.cur'), auto !important;
+}
+a, button, input[type="submit"], input[type="button"], input[type="reset"],
+[role="button"], .team-card, .clickable, label[for], .more-btn, .btn-primary,
+.submit-btn, .back-to-top, [onclick], .cursor-pointer, .modal-close,
+.album-item, .album-img, .news-card, .carousel, .era-card, .feedback-item,
+.chat-send, .version-item, .nav-link, .footer-nav a {
+    cursor: url('../images/cursor/链接选择.cur'), pointer !important;
+}
+input[type="text"], input[type="email"], input[type="password"], input[type="number"],
+input[type="search"], input[type="tel"], input[type="url"], textarea,
+[contenteditable="true"], select, input[type="date"], input[type="time"],
+input[type="datetime-local"], input[type="month"], input[type="week"] {
+    cursor: url('../images/cursor/文本选择.cur'), text !important;
+}
+*:disabled, .disabled, [disabled], [aria-disabled="true"] {
+    cursor: not-allowed !important;
+}
+body.loading, .cursor-wait {
+    cursor: url('../images/cursor/忙.cur'), wait !important;
+}
+[draggable="true"], .cursor-move {
+    cursor: url('../images/cursor/移动.cur'), move !important;
+}
+.cursor-crosshair {
+    cursor: url('../images/cursor/精确选择.cur'), crosshair !important;
+}
+
+/* ========== 全站弹簧动效 ========== */
+.nav-card, .news-card, .stat-card, .ann-item,
+.photo-item, .flip-card, .planet-node,
+.quick-btn, .send-btn, .liquid-btn, .cta-btn,
+.modal-close, .chat-restart, .history-item,
+.gallery-hint, .back-to-top, .footer-nav a {
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    transition-duration: 0.5s !important;
+}
+
+/* 按钮hover轻微旋转 */
+.liquid-btn:hover, .cta-btn:hover, .quick-btn:hover,
+.send-btn:hover, .modal-close:hover, .chat-restart:hover {
+    transform: scale(1.08) rotate(-2deg) !important;
+}
+
+/* 卡片hover大位移 */
+.nav-card:hover, .news-card:hover, .stat-card:hover,
+.ann-item:hover, .planet-node:hover, .info-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 20px 50px rgba(120,80,200,0.2) !important;
+}
+
+/* ============================================================
+   超宽屏适配 — 仅此一处断点
+   （移动端/平板/小笔记本断点已按需求全部移除，页面按桌面版布局呈现）
+   ============================================================ */
+
+/* ---------- 超宽屏 >1920px ---------- */
+@media (min-width: 1920px) {
+    .header-inner { max-width: 1600px; padding: 0 60px; }
+    .footer-container { max-width: 1600px; }
+    .nav-cards-section, .news-section { max-width: 1600px; }
+    .bottom-columns { padding: 20px 100px 100px; gap: 120px; }
+    .bottom-columns .stats-grid { gap: 28px; }
+    .bottom-columns .stat-card { padding: 44px 36px; }
+    .bottom-columns .stat-number { font-size: 2.8rem; }
+    .changelog-page, .map-page, .terms-page, .policy-page { max-width: 1200px; }
+    .card-grid-section, .gallery-hero, .festival-grid-section, .team-hero, .festival-hero { max-width: 1600px; }
+    .flip-card { width: 300px; height: 400px; }
+    .photo-desk { max-width: 1600px; }
+    .platform-cards { gap: 28px; }
+    .stream-cards { gap: 20px; }
+    .festival-grid { gap: 28px; }
+}

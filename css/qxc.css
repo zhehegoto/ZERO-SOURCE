@@ -1,0 +1,434 @@
+/* ============================================================
+   零源机构 · 群相册 — 散落照片桌面
+   完全创新设计 · 不沿用任何旧布局
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', -apple-system, sans-serif;
+    background: var(--bg-base);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 500px 400px at 10% 15%, rgba(255,107,157,0.08), transparent),
+        radial-gradient(ellipse 450px 500px at 90% 20%, rgba(196,77,255,0.07), transparent),
+        radial-gradient(ellipse 500px 400px at 50% 90%, rgba(77,208,255,0.07), transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+main { position: relative; z-index: 1; }
+
+.site-header .main-nav a { color: rgba(26,21,48,0.7); }
+.site-header.scrolled .main-nav a { color: var(--text-mid); }
+.site-header .main-nav a:hover { color: var(--grad-purple); background: rgba(196,77,255,0.08); }
+.site-header .main-nav a.active { color: var(--grad-purple); background: rgba(196,77,255,0.1); }
+
+/* ========== 液态头部 ========== */
+.gallery-hero {
+    position: relative;
+    padding: 130px 20px 50px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.g-a { width: 360px; height: 360px; background: var(--grad-pink); top: -40px; left: 15%; animation: gFloat1 17s ease-in-out infinite; }
+.g-b { width: 320px; height: 320px; background: var(--grad-blue); top: 10px; right: 12%; animation: gFloat2 21s ease-in-out infinite; }
+
+@keyframes gFloat1 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(50px,60px) scale(1.15);} }
+@keyframes gFloat2 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-50px,40px) scale(1.1);} }
+
+.hero-inner { position: relative; z-index: 2; }
+
+.gallery-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 24px;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--grad-purple);
+    margin-bottom: 24px;
+    font-family: 'Syne', sans-serif;
+}
+
+.gallery-badge i { color: var(--grad-pink); }
+
+.gallery-title {
+    font-family: 'ZCOOL QingKe HuangYou', 'Syne', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--text-dark);
+    letter-spacing: 8px;
+    margin-bottom: 12px;
+}
+
+.gallery-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+}
+
+.gallery-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.gallery-hint i { color: var(--grad-purple); }
+
+/* ========== 散落照片桌面（瀑布流） ========== */
+.photo-desk {
+    /* width:100% 必须显式声明：父级 main 是纵向 flex 容器，一旦 .photo-desk
+       被当成 flex item 做 fit-content 收缩，三列瀑布流会被压成一小撮并整体右偏 */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 30px 60px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    position: relative;
+}
+
+.masonry-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.desk-surface {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,255,255,0.3), transparent),
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(196,77,255,0.02) 35px, rgba(196,77,255,0.02) 36px);
+    pointer-events: none;
+    border-radius: 40px;
+    z-index: 0;
+}
+
+/* 散落照片 */
+.scatter-photo {
+    position: relative;
+    z-index: 1;
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 6px 6px 4px 4px;
+    padding: 10px 10px 36px;
+    box-shadow: 0 6px 24px rgba(120,80,200,0.15);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform;
+    width: 100%;
+}
+
+.scatter-photo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--grad-pink), var(--grad-purple), var(--grad-blue));
+    border-radius: 6px 6px 0 0;
+    opacity: 0.7;
+}
+
+.scatter-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+    object-fit: cover;
+}
+
+.scatter-photo .photo-label {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text-light);
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 1px;
+}
+
+.scatter-photo:hover {
+    z-index: 100 !important;
+    transform: rotate(0deg) scale(1.15) translateY(-8px) !important;
+    box-shadow: 0 24px 60px rgba(120,80,200,0.35);
+}
+
+/* 照片占位符 */
+.photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, rgba(255,107,157,0.08), rgba(196,77,255,0.08));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+.photo-placeholder i {
+    font-size: 1.5rem;
+    color: var(--grad-purple);
+    opacity: 0.4;
+}
+
+/* ========== 加载更多 ========== */
+.desk-load-more {
+    text-align: center;
+    padding: 20px 20px 80px;
+    position: relative;
+    z-index: 1;
+}
+
+.liquid-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 36px;
+    border-radius: 50px 60px 45px 55px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    letter-spacing: 2px;
+    font-family: inherit;
+}
+
+.liquid-btn.primary {
+    background: linear-gradient(135deg, var(--grad-pink), var(--grad-purple));
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(196,77,255,0.35);
+}
+
+.liquid-btn.primary:hover:not(:disabled) {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(196,77,255,0.45);
+}
+
+.liquid-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.loading-indicator {
+    margin-top: 16px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.loading-indicator i {
+    color: var(--grad-purple);
+    margin-right: 8px;
+}
+
+/* ========== 沉浸式预览 ========== */
+.immersive-preview {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.immersive-preview.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.preview-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(15,10,30,0.92);
+    backdrop-filter: blur(20px);
+}
+
+.preview-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.preview-close:hover {
+    background: var(--grad-pink);
+    border-color: transparent;
+    transform: rotate(90deg);
+}
+
+.preview-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-nav:hover {
+    background: linear-gradient(135deg, var(--grad-pink), var(--grad-purple));
+    border-color: transparent;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.preview-nav.prev { left: 30px; }
+.preview-nav.next { right: 30px; }
+
+.preview-stage {
+    position: relative;
+    z-index: 5;
+    max-width: 85vw;
+    max-height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-loader {
+    position: absolute;
+    color: rgba(255,255,255,0.6);
+    font-size: 1.2rem;
+    z-index: 1;
+}
+
+.preview-loader i {
+    color: var(--grad-purple);
+    font-size: 2rem;
+}
+
+.preview-img {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    transition: opacity 0.3s ease;
+}
+
+.preview-caption {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 28px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.88rem;
+}
+
+.caption-title { font-weight: 500; }
+
+.caption-index {
+    font-family: 'Syne', sans-serif;
+    color: var(--grad-pink);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* ========== 移动端适配 ========== */
+
+/* ========== 入场动画 · 散落落下 ========== */
+@keyframes scatterFade {
+    0% { opacity: 0; filter: blur(10px) brightness(1.3); }
+    100% { opacity: 1; filter: blur(0) brightness(1); }
+}
+@keyframes blurFocus {
+    0% { opacity: 0; filter: blur(14px); transform: scale(0.92); }
+    100% { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+@keyframes gentleRise {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.gallery-badge { opacity: 0; animation: blurFocus 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s forwards; }
+.gallery-title { opacity: 0; animation: blurFocus 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s forwards; }
+.gallery-subtitle { opacity: 0; animation: gentleRise 0.5s ease 0.55s forwards; }
+.gallery-hint { opacity: 0; animation: gentleRise 0.5s ease 0.7s forwards; }
+
+.scatter-photo {
+    opacity: 0;
+    animation: scatterFade 0.8s ease forwards;
+}
+
+.desk-load-more { opacity: 0; animation: gentleRise 0.6s ease 1.5s forwards; }
