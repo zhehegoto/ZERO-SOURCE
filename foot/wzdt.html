@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="零源机构|Z℮R∅‑SOURCE地图 - 我们的线上平台与线下地址">
+    <title>网站地图 - 零源机构|Z℮R∅‑SOURCE</title>
+    <link rel="stylesheet" href="../css/public.css">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <link href="../css/fonts-min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/wzdt.css">
+    <link rel="icon" type="image/x-icon" href="../images/cursor/正常选择.cur">
+</head>
+<body>
+<main class="map-page">
+    <!-- 页面头部 -->
+    <div class="page-hero">
+        <div class="hero-tag"><i class="fa fa-map-marker"></i> FIND US</div>
+        <h1 class="hero-title">找到我们</h1>
+        <p class="hero-subtitle">线下地址 · 线上平台 · 随时联系</p>
+    </div>
+
+    <!-- 大地图探索区 -->
+    <div class="map-explorer liquid-glass" id="mapExplorer">
+        <!-- 网格背景 -->
+        <div class="map-grid"></div>
+        <!-- 渐变光晕 -->
+        <div class="map-glow"></div>
+        <!-- 经纬度坐标 -->
+        <div class="coord-display">
+            <span class="coord-line">X</span>
+            <span class="coord-line">Y</span>
+        </div>
+        <!-- 缩放控制 -->
+        <div class="map-zoom">
+            <button class="zoom-btn" id="zoomIn"><i class="fa fa-plus"></i></button>
+            <button class="zoom-btn" id="zoomOut"><i class="fa fa-minus"></i></button>
+        </div>
+        <!-- 定位针 -->
+        <div class="map-pin-wrap" id="mapPin">
+            <div class="pin-pulse-ring"></div>
+            <div class="pin-pulse-ring delay"></div>
+            <div class="pin-marker">
+                <i class="fa fa-map-marker"></i>
+            </div>
+            <!-- 地址气泡 -->
+            <div class="pin-bubble">
+                <div class="bubble-title">零源机构</div>
+                <div class="bubble-addr">114514</div>
+                <div class="bubble-arrow"></div>
+            </div>
+        </div>
+        <!-- 百度地图按钮 -->
+        <a href="114514" target="_blank" rel="noopener noreferrer" class="baidumap-btn">
+            <i class="fa fa-external-link"></i> 在百度地图中打开
+        </a>
+    </div>
+
+    <!-- 联系信息卡片流 -->
+    <div class="contact-stream">
+        <div class="stream-label"><i class="fa fa-address-book"></i> 联系方式</div>
+        <div class="stream-cards">
+            <div class="stream-card liquid-glass" data-copy="13109710358">
+                <div class="stream-icon" style="background:linear-gradient(135deg,#4a9eff,#6c5ce7)"><i class="fa fa-phone"></i></div>
+                <div class="stream-info">
+                    <div class="stream-label-sm">电话</div>
+                    <div class="stream-value">1114445551114</div>
+                </div>
+                <div class="stream-copy"><i class="fa fa-copy"></i></div>
+            </div>
+            <div class="stream-card liquid-glass" data-copy="jiligulu@shuoshane">
+                <div class="stream-icon" style="background:linear-gradient(135deg,#2ecc71,#4a9eff)"><i class="fa fa-envelope"></i></div>
+                <div class="stream-info">
+                    <div class="stream-label-sm">邮箱</div>
+                    <div class="stream-value">111444555111444</div>
+                </div>
+                <div class="stream-copy"><i class="fa fa-copy"></i></div>
+            </div>
+            <div class="stream-card liquid-glass">
+                <div class="stream-icon" style="background:linear-gradient(135deg,#f39c12,#e74c3c)"><i class="fa fa-clock-o"></i></div>
+                <div class="stream-info">
+                    <div class="stream-label-sm">时间</div>
+                    <div class="stream-value">随时</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 线上平台 -->
+    <div class="online-section">
+        <div class="section-head">
+            <h2 class="section-title">线上平台</h2>
+            <p class="section-desc">在这些地方也能找到我们</p>
+        </div>
+        <div class="platform-cards">
+            <!-- 官方网站：写完整绝对地址，便于 JS 与当前页地址比对
+                 （若当前正访问该域名，点击时提示「已在当前网站」而不再重复跳转） -->
+            <a href="https://zerozd.eu.cc" class="platform-card liquid-glass">
+                <div class="platform-icon" style="background:linear-gradient(135deg,#4a9eff,#6c5ce7)"><i class="fa fa-globe"></i></div>
+                <div class="platform-name">官方网站</div>
+                <div class="platform-handle">zerozd.eu.cc</div>
+                <div class="platform-status on">运营中</div>
+            </a>
+            <a href="https://github.com/zhehegoto/ZERO-SOURCE" target="_blank" rel="noopener" class="platform-card liquid-glass">
+                <div class="platform-icon" style="background:linear-gradient(135deg,#24292e,#57606a)"><i class="fa fa-github"></i></div>
+                <div class="platform-name">GitHub</div>
+                <div class="platform-handle">zhehegoto/ZERO-SOURCE</div>
+                <div class="platform-status on">运行中</div>
+            </a>
+            <!-- 微信公众号没有可跳转的公开链接（微信生态限制），改为点击复制账号名，
+                 提示用户到微信「添加朋友 → 搜一搜」里粘贴搜索 -->
+            <div class="platform-card liquid-glass" data-copy="ZERO-SOURCE零源机构"
+                 data-copy-tip="已复制公众号名称，去微信「搜一搜」粘贴即可找到我们"
+                 title="点击复制公众号名称">
+                <div class="platform-icon" style="background:linear-gradient(135deg,#07c160,#2ecc71)"><i class="fa fa-weixin"></i></div>
+                <div class="platform-name">微信公众号</div>
+                <div class="platform-handle">ZERO-SOURCE零源机构</div>
+                <div class="platform-status on">运营中</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 复制提示 -->
+    <div class="copy-toast" id="copyToast">已复制到剪贴板</div>
+</main>
+<script src="../js/wzdt.js"></script>
+<script src="../js/public.js"></script>
+</body>
+</html>
