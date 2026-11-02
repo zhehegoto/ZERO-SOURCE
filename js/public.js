@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // siteStartTime   —— 站点头上线时间，用于首页「天运行」统计卡与页脚「已运行」
         // changelogStart  —— 更新日志开始记录的时间，用于更新日志页的「运行天数」
         // 注意：两者不一致是设计如此，但不要在其他 js 里再写死一遍。
-        siteStartTime: '2026-05-05 00:00:10',
+        siteStartTime: '2025-11-16 00:00:00',
         changelogStart: '2025-11-16',
         birthdayPages: {
             '1-10': 'sr/liu/liu.html',

@@ -292,7 +292,7 @@
 
     // 与 public.js 的 CONFIG.siteStartTime 保持一致；这里只作为 public.js
     // 尚未执行时的兜底（两者必须相同，否则页脚与统计卡会显示不同天数）。
-    const SITE_START_TIME = '2026-05-05 00:00:10';
+    const SITE_START_TIME = '2025-11-16 00:00:00';
 
     function getRuntimeDays() {
         // 优先复用 public.js 暴露的统一时间计算，保证两处数字完全一致
